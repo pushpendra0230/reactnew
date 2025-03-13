@@ -1,0 +1,79 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+
+const Fakepro = () => {
+    const [productData, setProductData] = useState([]);
+    const [isLoading, setLoading] = useState(true);
+    const [cartData, setCartData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://fakestoreapi.com/products');
+                setProductData(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const addToCart = (item) => {
+        const newCart = [...cartData, item];
+        setCartData(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+    };
+    
+
+    const removeCart = (id) => {
+        const newCart = cartData.filter(item => item.id !== id);
+        setCartData(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+    };
+
+    return (
+        <div className="container mx-auto px-4">
+            <h1 className="text-2xl font-bold mb-4">Cart Items : {cartData.length}</h1>
+            {cartData.length === 0 ? (
+                <h3>Cart is empty</h3>
+            ) : (
+                cartData.map((item, index) => (
+                    <div key={index} className="border p-4 mb-4 flex items-center">
+                        <div className="flex-shrink-0 mr-4">
+                            <img src={item.image} alt={item.title} className="w-16 h-16 object-cover" />
+                        </div>
+                        <div>
+                            <h4 className="font-bold">{item.title}</h4>
+                            <p className="text-sm">{item.price}</p>
+                            <button className="text-sm text-red-600 mt-2" onClick={() => removeCart(item.id)}>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
+
+            {isLoading ? (
+                <h1 className="text-2xl mt-8">Loading...</h1>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+                    {productData.map((item, index) => (
+                        <div key={index} className="border p-4 flex flex-col items-center">
+                            <img src={item.image} alt={item.title} className="w-32 h-32 object-cover mb-4" />
+                            <h3 className="font-bold text-lg">{item.title}</h3>
+                            <p className="text-sm">{item.category}</p>
+                            <p className="text-sm font-bold">${item.price}</p>
+                            <button className="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                                onClick={() => addToCart(item)}>
+                                Add to Cart
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Fakepro;

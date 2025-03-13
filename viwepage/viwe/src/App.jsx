@@ -1,30 +1,47 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
-import ProductCart from "./components/ProductCart";
+// import React from "react";
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import ProductCart from "./components/ProductCart";
+
+// const App = () => {
+//     return (
+//         <BrowserRouter>
+//             <Routes>
+//                 <Route path="/" element={<ProductCart />} />
+//                 <Route path="/product" element={<ProductCart />} />
+//             </Routes>
+//         </BrowserRouter>
+//     );
+// };
+// export default App;
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import Counter from './components/Counter';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import LazyLoadingImage from './components/LazyLoadingImage';
+import Fakepro from './components/Fakepro';
 
 const App = () => {
-    // const isSignUp = localStorage.getItem('userInfo') ? true : false;
-    const isSignUp = localStorage.getItem('userInfo') !== null;
-    console.log(isSignUp);
+    const [data, setData] = useState([]);
 
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <SignUp />
-        },
-        {
-            path: "/login",
-            element: <Login />
-        },
-        {
-            path: "/product",
-            element: isSignUp ? <ProductCart /> : <Login /> // Moved inside App to access isSignUp
-        }
-    ]);
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(data => setData(data));
+    }, []);
 
-    return <RouterProvider router={router} />;
+    return (
+        <div>
+            {/* <Counter /> */}
+            {/* <Login /> */}
+            {/* <SignUp /> */}
+            {/* <LazyLoadingImage data={data} /> */}
+            <Fakepro />
+        </div>
+    );
 };
 
 export default App;

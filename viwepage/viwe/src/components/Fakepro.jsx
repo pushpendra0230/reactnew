@@ -50,5 +50,8 @@ const Fakepro = () => {
             ))}
         </>
     )
+
+
+    
 }
 export default Fakepro;

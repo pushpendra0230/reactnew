@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-const Fakepro = () => {
+const Api = () => {
     const [productData, setProductData] = useState([])
     const [cartdata, setcartdata] = useState([])
 
@@ -27,7 +27,6 @@ const Fakepro = () => {
 
     return (
         <>
-
             <h1>cart items : {cartdata.length}</h1>
             {cartdata.map((item, index) => (
                 <div key={index}>
@@ -36,7 +35,6 @@ const Fakepro = () => {
                     <p>{item.price}</p>
                 </div>
             ))}
-
 
             {productData.map((item, index) => (
                 <div key={index} className=''>
@@ -50,8 +48,5 @@ const Fakepro = () => {
             ))}
         </>
     )
-
-
-
 }
-export default Fakepro;
+export default Api;

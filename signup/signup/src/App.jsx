@@ -7,6 +7,8 @@ const App = () => {
       <Signup />
     </div>
   );
+
+  
 };
 
 export default App;

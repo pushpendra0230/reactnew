@@ -2,40 +2,40 @@
 
 
 
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const app = express();
-// const port = 6001;
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const port = 6001;
 
-// // const mongoURL = "mongodb://localhost:27017/regex"
-// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
+// const mongoURL = "mongodb://localhost:27017/regex"
+const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
 
-// mongoose.connect(mongoURL)
-//     .then(() => console.log("connencted to mongodb..."))
-//     .catch(err => console.error("not connect to mongodb..."));
-
-
-
-// const Schema = mongoose.Schema
-
-// const students = new Schema({
-//     data: Schema.Types.Mixed
-// })
+mongoose.connect(mongoURL)
+    .then(() => console.log("connencted to mongodb..."))
+    .catch(err => console.error("not connect to mongodb..."));
 
 
-// const studentsData = mongoose.model("students", students);
+
+const Schema = mongoose.Schema
+
+const students = new Schema({
+    data: Schema.Types.Mixed
+})
 
 
-// app.get("/getAll", async (req, res) => {
-//     const myData = await studentsData.find();
-//     console.log(">>>>>mydata>>>>", myData);
-//     res.status(200).json(myData)
-// });
+const studentsData = mongoose.model("students", students);
 
 
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// });
+app.get("/getAll", async (req, res) => {
+    const myData = await studentsData.find();
+    console.log(">>>>>mydata>>>>", myData);
+    res.status(200).json(myData)
+});
+
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 
 
@@ -124,80 +124,135 @@
 // of the data in this you have to add data id name age phone all the thinges you add in the code in the url of the postman
 
 
-const express = require("express");
-const mongoose = require("mongoose");
-const app = express();
-const port = 6001;
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const app = express();
+// const port = 6001;
 
-const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
 
-mongoose.connect(mongoURL)
-    .then(() => console.log("connencted to mongodb..."))
-    .catch(err => console.error("not connect to mongodb..."));
-
-
-
-const Schema = mongoose.Schema
-
-const students = new Schema({
-    data: Schema.Types.Mixed
-})
+// mongoose.connect(mongoURL)
+//     .then(() => console.log("connencted to mongodb..."))
+//     .catch(err => console.error("not connect to mongodb..."));
 
 
-const studentsData = mongoose.model("students", students);
+
+// const Schema = mongoose.Schema
+
+// const students = new Schema({
+//     data: Schema.Types.Mixed
+// })
+
+
+// const studentsData = mongoose.model("students", students);
+
+
+
+// // app.get("/getOne/", async (req, res) => {
+// //     console.log(">>>>>", req.query.id)
+// //     const { id } = req.query
+// //     const myData = await studentsData.findOne({ _id: id })
+// //     console.log("mydata", myData)
+// //     res.status(200).json(myData)
+// // })
+
+
+// // app.get("/getOne/", async (req, res) => {
+// //     console.log(">>>>>", req.query.name)
+// //     const { name } = req.query
+// //     const myData = await studentsData.findOne({ name: name })
+// //     console.log("mydata", myData)
+// //     res.status(200).json(myData)
+// // })
+
+
+// // app.get("/getOne/", async (req, res) => {
+// //     console.log(">>>>>", req.query.grade)
+// //     const { grade } = req.query
+// //     const myData = await studentsData.find({ grade: grade })
+// //     console.log("mydata", myData)
+// //     res.status(200).json(myData)
+// // })
 
 
 
 // app.get("/getOne/", async (req, res) => {
-//     console.log(">>>>>", req.query.id)
-//     const { id } = req.query
-//     const myData = await studentsData.findOne({ _id: id })
+//     console.log(">>>>>", req.query.age)
+//     const { age } = req.query
+//     const myData = await studentsData.find({ age: age })
 //     console.log("mydata", myData)
 //     res.status(200).json(myData)
 // })
 
 
-// app.get("/getOne/", async (req, res) => {
-//     console.log(">>>>>", req.query.name)
-//     const { name } = req.query
-//     const myData = await studentsData.findOne({ name: name })
-//     console.log("mydata", myData)
-//     res.status(200).json(myData)
+
+
+// // app.get("/getAll/", async (req, res) => {
+// //     const myData = await studentsData.find()
+// //     console.log(`>>>>>>>>>>myData`,myData);
+// //     res.status(200).json(myData)
+// //     console.log('>>>>>myData');
+// // })
+
+
+
+
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+
+
+// data ko delete karne ke liye
+
+
+
+
+
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const app = express();
+// const port = 6001;
+
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
+
+// mongoose.connect(mongoURL)
+//     .then(() => console.log("connencted to mongodb..."))
+//     .catch(err => console.error("not connect to mongodb..."));
+
+
+
+// const Schema = mongoose.Schema
+
+// const students = new Schema({
+//     data: Schema.Types.Mixed
 // })
 
 
-// app.get("/getOne/", async (req, res) => {
-//     console.log(">>>>>", req.query.grade)
-//     const { grade } = req.query
-//     const myData = await studentsData.find({ grade: grade })
-//     console.log("mydata", myData)
-//     res.status(200).json(myData)
+// const studentsData = mongoose.model("students", students);
+
+
+// // app.delete("/remove/:id", async (req, res) => {
+// //     const { id } = req.params
+// //     const removeData = await studentsData.findByIdAndDelete(id)
+// //     console.log(">>remove data>>", removeData)
+// //     res.status(200).json({ message: `data delete ${id}` })
+// // })
+
+
+// app.delete("/remove/:name", async (req, res) => {
+//     const { name } = req.params
+//     const removeData = await studentsData.findByIdAndDelete(name)
+//     console.log(`>>remove data>>`, removeData)
+//     res.status(200).json({ message: `data delete ${name}` })
 // })
 
 
 
-app.get("/getOne/", async (req, res) => {
-    console.log(">>>>>", req.query.age)
-    const { age } = req.query
-    const myData = await studentsData.find({ age: age })
-    console.log("mydata", myData)
-    res.status(200).json(myData)
-})
-
-
-
-
-// app.get("/getAll/", async (req, res) => {
-//     const myData = await studentsData.find()
-//     console.log(`>>>>>>>>>>myData`,myData);
-//     res.status(200).json(myData)
-//     console.log('>>>>>myData');
-// })
-
-
-
-
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });

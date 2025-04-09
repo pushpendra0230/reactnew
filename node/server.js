@@ -296,50 +296,50 @@
 
 // for all the data you want from mongodb
 
-const express = require("express");
-const mongoose = require("mongoose");
-const app = express();
-const port = 6001;
-app.use(express.json())
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const app = express();
+// const port = 6001;
+// app.use(express.json())
 
 
-const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM"
 
-mongoose.connect(mongoURL)
-    .then(() => console.log("connencted to mongodb..."))
-    .catch(err => console.error("not connect to mongodb..."));
-
-
-
-const Schema = mongoose.Schema
-
-const students = new Schema({
-    // data: Schema.Types.Mixed
-    name: {
-        type: String,
-        require: true
-    },
-    email: {
-        type: String,
-        require: true
-    },
-    phone: {
-        type: Number,
-        require: false
-    },
-    address: {
-        type: String,
-        require: true
-    }
-},
-    { timestamps: true },
-)
+// mongoose.connect(mongoURL)
+//     .then(() => console.log("connencted to mongodb..."))
+//     .catch(err => console.error("not connect to mongodb..."));
 
 
-const studentsData = mongoose.model("students", students);
+
+// const Schema = mongoose.Schema
+
+// const students = new Schema({
+//     // data: Schema.Types.Mixed
+//     name: {
+//         type: String,
+//         require: true
+//     },
+//     email: {
+//         type: String,
+//         require: true
+//     },
+//     phone: {
+//         type: Number,
+//         require: false
+//     },
+//     address: {
+//         type: String,
+//         require: true
+//     }
+// },
+//     { timestamps: true },
+// )
 
 
-// url :- http://localhost:6001/createRecord
+// const studentsData = mongoose.model("students", students);
+
+
+// // url :- http://localhost:6001/createRecord
 
 
 // app.post("/createRecord", async (req, res) => {
@@ -353,14 +353,14 @@ const studentsData = mongoose.model("students", students);
 
 
 
-app.get("/getAll", async (req, res) => {
-    const myData = await studentsData.find();
-    console.log(">>>>>mydata>>>>", myData);
-    res.status(200).json(myData)
-});
+// app.get("/getAll", async (req, res) => {
+//     const myData = await studentsData.find();
+//     console.log(">>>>>mydata>>>>", myData);
+//     res.status(200).json(myData)
+// });
 
 
-// url :- http://localhost:6001/getOne/67e3b07b6a8ffa31ae4d7942
+// // url :- http://localhost:6001/getOne/67e3b07b6a8ffa31ae4d7942
 
 
 // app.get("/getOne/:id", async (req, res) => {
@@ -373,7 +373,7 @@ app.get("/getAll", async (req, res) => {
 
 
 
-// url :- http://localhost:6001/getOne/?id=67e3b0ed6a8ffa31ae4d7946
+// // url :- http://localhost:6001/getOne/?id=67e3b0ed6a8ffa31ae4d7946
 
 
 
@@ -401,7 +401,7 @@ app.get("/getAll", async (req, res) => {
 
 
 
-// url :- http://localhost:6001/updateRecord
+// // url :- http://localhost:6001/updateRecord
 
 
 
@@ -415,16 +415,139 @@ app.get("/getAll", async (req, res) => {
 
 
 
+// app.patch("/updateRecord", async (req, res) => {
+//     const id = req.body._id
+//     const myData = req.body
+//     const update = await studentsData.findByIdAndUpdate(id, myData)
+//     console.log(`>>data>>`, update)
+//     res.status(201).json({ message: `update data ${id}`, myData })
+// })
+
+
+
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+
+
+
+
+// with try catch things and frontend backend connected things 
+
+
+
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+const port = 6001;
+
+// Middlewares
+app.use(express.json());
+app.use(cors());
+
+const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM";
+
+mongoose
+    .connect(mongoURL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Connected to MongoDB..."))
+    .catch((err) => console.error("Could not connect to MongoDB...", err));
+
+const studentSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        phone: {
+            type: Number,
+            required: false,
+        },
+        address: {
+            type: String,
+            required: true,
+        },
+    },
+    { timestamps: true }
+);
+
+const Student = mongoose.model("students", studentSchema);
+
+// Create
+app.post("/createRecord", async (req, res) => {
+    try {
+        const student = new Student(req.body);
+        const savedData = await student.save();
+        res.status(201).json(savedData);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Read All
+app.get("/getAll", async (req, res) => {
+    try {
+        const students = await Student.find();
+        res.status(200).json(students);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Read One by Params
+app.get("/getOne/:id", async (req, res) => {
+    try {
+        const student = await Student.findById(req.params.id);
+        res.status(200).json(student);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Read
+app.get("/getOne", async (req, res) => {
+    try {
+        const student = await Student.findById(req.query.id);
+        res.status(200).json(student);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Delete
+app.delete("/remove/:id", async (req, res) => {
+    try {
+        await Student.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: `Data deleted: ${req.params.id}` });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Update
 app.patch("/updateRecord", async (req, res) => {
-    const id = req.body._id
-    const myData = req.body
-    const update = await studentsData.findByIdAndUpdate(id, myData)
-    console.log(`>>data>>`, update)
-    res.status(201).json({ message: `update data ${id}` })
-})
-
-
-
+    try {
+        const updated = await Student.findByIdAndUpdate(req.body._id, req.body, {
+            new: true,
+        });
+        res.status(200).json({ message: "Data updated", data: updated });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

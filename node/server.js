@@ -448,7 +448,7 @@ const cors = require("cors");
 const app = express();
 const port = 6001;
 
-// Middlewares
+// Middlewares backend ko frountend se connect karta h 
 app.use(express.json());
 app.use(cors());
 

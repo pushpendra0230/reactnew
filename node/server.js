@@ -442,13 +442,139 @@
 
 
 
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const cors = require("cors");
+// const app = express();
+// const port = 6001;
+
+// // Middlewares backend ko frountend se connect karta h 
+// app.use(express.json());
+// app.use(cors());
+
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM";
+
+// mongoose
+//     .connect(mongoURL, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     })
+//     .then(() => console.log("Connected to MongoDB..."))
+//     .catch((err) => console.error("Could not connect to MongoDB...", err));
+
+
+
+// const studentRoute = require(`./router/studentRoute`)
+
+
+// app.use(`/student`, studentRoute)
+
+
+
+// // const studentSchema = new mongoose.Schema(
+// //     {
+// //         name: {
+// //             type: String,
+// //             required: true,
+// //         },
+// //         email: {
+// //             type: String,
+// //             required: true,
+// //         },
+// //         phone: {
+// //             type: Number,
+// //             required: false,
+// //         },
+// //         address: {
+// //             type: String,
+// //             required: true,
+// //         },
+// //     },
+// //     { timestamps: true }
+// // );
+
+// // const Student = mongoose.model("students", studentSchema);
+
+// // Create
+// // app.post("/createRecord", async (req, res) => {
+// //     try {
+// //         const student = new Student(req.body);
+// //         const savedData = await student.save();
+// //         res.status(201).json(savedData);
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// // // Read All
+// // app.get("/getAll", async (req, res) => {
+// //     try {
+// //         const students = await Student.find();
+// //         res.status(200).json(students);
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// // // Read One by Params
+// // app.get("/getOne/:id", async (req, res) => {
+// //     try {
+// //         const student = await Student.findById(req.params.id);
+// //         res.status(200).json(student);
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// // // Read
+// // app.get("/getOne", async (req, res) => {
+// //     try {
+// //         const student = await Student.findById(req.query.id);
+// //         res.status(200).json(student);
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// // // Delete
+// // app.delete("/remove/:id", async (req, res) => {
+// //     try {
+// //         await Student.findByIdAndDelete(req.params.id);
+// //         res.status(200).json({ message: `Data deleted: ${req.params.id}` });
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// // // Update
+// // app.patch("/updateRecord", async (req, res) => {
+// //     try {
+// //         const updated = await Student.findByIdAndUpdate(req.body._id, req.body, {
+// //             new: true,
+// //         });
+// //         res.status(200).json({ message: "Data updated", data: updated });
+// //     } catch (err) {
+// //         res.status(500).json({ error: err.message });
+// //     }
+// // });
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const port = 6001;
 
-// Middlewares backend ko frountend se connect karta h 
+// Middlewares backend ko frountend se connect karta h
 app.use(express.json());
 app.use(cors());
 
@@ -462,92 +588,55 @@ mongoose
     .then(() => console.log("Connected to MongoDB..."))
     .catch((err) => console.error("Could not connect to MongoDB...", err));
 
-const studentSchema = new mongoose.Schema(
-    {
-        name: {
-            type: String,
-            required: true,
-        },
-        email: {
-            type: String,
-            required: true,
-        },
-        phone: {
-            type: Number,
-            required: false,
-        },
-        address: {
-            type: String,
-            required: true,
-        },
-    },
-    { timestamps: true }
-);
 
-const Student = mongoose.model("students", studentSchema);
 
-// Create
-app.post("/createRecord", async (req, res) => {
-    try {
-        const student = new Student(req.body);
-        const savedData = await student.save();
-        res.status(201).json(savedData);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+const studentRoute = require(`./router/studentRoute`)
 
-// Read All
-app.get("/getAll", async (req, res) => {
-    try {
-        const students = await Student.find();
-        res.status(200).json(students);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
 
-// Read One by Params
-app.get("/getOne/:id", async (req, res) => {
-    try {
-        const student = await Student.findById(req.params.id);
-        res.status(200).json(student);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+app.use(`/student`, studentRoute)
 
-// Read
-app.get("/getOne", async (req, res) => {
-    try {
-        const student = await Student.findById(req.query.id);
-        res.status(200).json(student);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
 
-// Delete
-app.delete("/remove/:id", async (req, res) => {
-    try {
-        await Student.findByIdAndDelete(req.params.id);
-        res.status(200).json({ message: `Data deleted: ${req.params.id}` });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+// // Read One by Params
+// app.get("/getOne/:id", async (req, res) => {
+//     try {
+//         const student = await Student.findById(req.params.id);
+//         res.status(200).json(student);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
-// Update
-app.patch("/updateRecord", async (req, res) => {
-    try {
-        const updated = await Student.findByIdAndUpdate(req.body._id, req.body, {
-            new: true,
-        });
-        res.status(200).json({ message: "Data updated", data: updated });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+// // Read
+// app.get("/getOne", async (req, res) => {
+//     try {
+//         const student = await Student.findById(req.query.id);
+//         res.status(200).json(student);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
+
+// // Delete
+// app.delete("/remove/:id", async (req, res) => {
+//     try {
+//         await Student.findByIdAndDelete(req.params.id);
+//         res.status(200).json({ message: `Data deleted: ${req.params.id}` });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
+
+// // Update
+// app.patch("/updateRecord", async (req, res) => {
+//     try {
+//         const updated = await Student.findByIdAndUpdate(req.body._id, req.body, {
+//             new: true,
+//         });
+//         res.status(200).json({ message: "Data updated", data: updated });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

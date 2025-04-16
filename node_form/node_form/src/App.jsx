@@ -33,6 +33,56 @@ const App = () => {
         fetchData();
     }, []);
 
+    return (
+        <div className="min-h-screen bg-gray-100 p-6">
+            <div className="max-w-4xl mx-auto">
+                <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+                    Student Form
+                </h1>
+
+                {/* Form Section */}
+                <div className="bg-white p-4 rounded-md shadow mb-10">
+                    <Form fetchData={fetchData} editData={editData} setEditData={setEditData} />
+                </div>
+
+                {/* Student List Section */}
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">All Students</h2>
+
+                <div className="grid gap-4">
+                    {students.map((student) => (
+                        <div
+                            key={student._id}
+                            className="bg-white border border-black rounded-md p-8"
+                        >
+                            <div className="mb-2">
+                                <p className="text-sm"><strong>Name:</strong> {student.name}</p>
+                                <p className="text-sm"><strong>Email:</strong> {student.email}</p>
+                                <p className="text-sm"><strong>Phone:</strong> {student.phone}</p>
+                                <p className="text-sm"><strong>Address:</strong> {student.address}</p>
+                            </div>
+                            <div className="flex gap-2 mt-4">
+                                <button
+                                    onClick={() => handleEdit(student)}
+                                    className="bg-yellow-400 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(student._id)}
+                                    className="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+
+
+
 
 
     // return (
@@ -86,59 +136,6 @@ const App = () => {
     //         </div>
     //     </div>
     // );
-
-
-
-
-
-
-    return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
-                    Student Form
-                </h1>
-
-                {/* Form Section */}
-                <div className="bg-white p-4 rounded-md shadow mb-10">
-                    <Form fetchData={fetchData} editData={editData} setEditData={setEditData} />
-                </div>
-
-                {/* Student List Section */}
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">All Students</h2>
-
-                <div className="grid gap-4">
-                    {students.map((student) => (
-                        <div
-                            key={student._id}
-                            className="bg-white border border-gray-200 rounded-md p-4 shadow-sm"
-                        >
-                            <div className="mb-2">
-                                <p className="text-sm"><strong>Name:</strong> {student.name}</p>
-                                <p className="text-sm"><strong>Email:</strong> {student.email}</p>
-                                <p className="text-sm"><strong>Phone:</strong> {student.phone}</p>
-                                <p className="text-sm"><strong>Address:</strong> {student.address}</p>
-                            </div>
-                            <div className="flex gap-2 mt-2">
-                                <button
-                                    onClick={() => handleEdit(student)}
-                                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded"
-                                >
-                                    Update
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(student._id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
 
 };
 

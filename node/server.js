@@ -592,51 +592,11 @@ mongoose
 
 const studentRoute = require(`./router/studentRoute`)
 
+const userRoute = require(`./router/userRoute`)
+
 
 app.use(`/student`, studentRoute)
-
-
-// // Read One by Params
-// app.get("/getOne/:id", async (req, res) => {
-//     try {
-//         const student = await Student.findById(req.params.id);
-//         res.status(200).json(student);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
-
-// // Read
-// app.get("/getOne", async (req, res) => {
-//     try {
-//         const student = await Student.findById(req.query.id);
-//         res.status(200).json(student);
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
-
-// // Delete
-// app.delete("/remove/:id", async (req, res) => {
-//     try {
-//         await Student.findByIdAndDelete(req.params.id);
-//         res.status(200).json({ message: `Data deleted: ${req.params.id}` });
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
-
-// // Update
-// app.patch("/updateRecord", async (req, res) => {
-//     try {
-//         const updated = await Student.findByIdAndUpdate(req.body._id, req.body, {
-//             new: true,
-//         });
-//         res.status(200).json({ message: "Data updated", data: updated });
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
+app.use(`/user`, userRoute)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

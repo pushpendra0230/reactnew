@@ -1,35 +1,42 @@
-// const jwt = require(`jsonwebtoken`)
-// const secret = ``;
-// const userModel = require(`../model/userModel`)
+const jwt = require(`jsonwebtoken`)
+const secret = `bhsdhgjhbndguhwjedbnvhjvhewgjkjgdfjbjkjkwe`;
+const userModel = require(`../model/userModel`)
 
-// module.exports = async (req, res, next) => {
-//     const barrerToken = req.headers.authorization;
-//     console.log('>>>>>>>barrerToken>>>', barrerToken);
+module.exports = async (req, res, next) => {
+    try {
 
-//     if (!barrerToken) {
-//         return res.status(401).json({ message: 'no token provided' });
-//     }
+        const barrerToken = req.headers.authorization;
+        console.log('>>>>>>>barrerToken>>>', barrerToken);
 
-//     const token = barrerToken.split(" ")[1];
-//     console.log('>>>>>>>token>>>', token);
+        if (!barrerToken) {
+            return res.status(401).json({ message: 'no token provided' });
+        }
 
-//     if (!token) {
-//         return res.status(401).json({ message: 'no token found' });
-//     }
+        const token = barrerToken.split(" ")[1];
+        console.log('>>>>>>>token>>>', token);
 
-//     const decode = jwt.verify(token, secret);
-//     console.log('>>>>>>>decode>>>', decode);
+        if (!token) {
+            return res.status(401).json({ message: 'no token found' });
+        }
 
-//     if (!decode) {
-//         return res.status(401).json({ message: 'invalid token' });
-//     }
+        const decode = jwt.verify(token, secret);
+        console.log('>>>>>>>decode>>>', decode);
 
-//     const user = await userModel.findOne({ email: decode.email });
-//     console.log('>>>>>>>user>>>', user);
+        if (!decode) {
+            return res.status(401).json({ message: 'invalid token' });
+        }
 
-//     if (!user) {
-//         return res.status(401).json({ message: 'invalid user' });
-//     }
+        const user = await userModel.findOne({ email: decode.email });
+        console.log('>>>>>>>user>>>', user);
 
-//     next();
-// };
+        if (!user) {
+            return res.status(401).json({ message: 'invalid user' });
+        }
+
+        next();
+    } catch (error) {
+        console.log(`>>>>>error>>>>>>`, error);
+
+        return res.status(500).json({ message: 'internal server error ' });
+    }
+};

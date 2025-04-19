@@ -23,7 +23,7 @@ const Form = ({ fetchData, editData, setEditData }) => {
         e.preventDefault();
         try {
             if (editData) {
-                await axios.patch("http://localhost:6001/updateRecord", formData);
+                await axios.patch("http://localhost:6001/students/createRecord", formData);
                 setEditData(null);
             } else {
                 await axios.post("http://localhost:6001/createRecord", formData);

@@ -568,35 +568,100 @@
 
 
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const cors = require("cors");
+// const app = express();
+// const port = 6001;
+
+// // Middlewares backend ko frountend se connect karta h
+// app.use(express.json());
+// app.use(cors());
+
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM";
+
+// mongoose
+//     .connect(mongoURL, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     })
+//     .then(() => console.log("Connected to MongoDB..."))
+//     .catch((err) => console.error("Could not connect to MongoDB...", err));
+
+
+
+// const studentRoute = require(`./router/studentRoute`)
+
+// const userRoute = require(`./router/userRoute`)
+
+
+// app.use(`/student`, studentRoute)
+// app.use(`/user`, userRoute)
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const cors = require("cors");
+// const app = express();
+// const port = 6001;
+
+// // Middlewares to connect backend with frontend
+// app.use(express.json());
+// app.use(cors()); // This enables CORS for all routes
+
+// const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM";
+
+// // Connect to MongoDB
+// mongoose
+//     .connect(mongoURL, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     })
+//     .then(() => console.log("Connected to MongoDB..."))
+//     .catch((err) => console.error("Could not connect to MongoDB...", err));
+
+// // Import routes
+// const studentRoute = require(`./router/studentRoute`);
+// const userRoute = require(`./router/userRoute`);
+
+// // Use routes
+// app.use(`/student`, studentRoute);
+// app.use(`/user`, userRoute);
+
+// // Start the server
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const port = 6001;
+const userRoute = require('./router/userRoute')
+const studentRoute = require('./router/studentRoute')
 
-// Middlewares backend ko frountend se connect karta h
 app.use(express.json());
 app.use(cors());
 
 const mongoURL = "mongodb+srv://pushpendra:1234@cluster0.zf1kp.mongodb.net/batchM";
 
 mongoose
-    .connect(mongoURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    .connect(mongoURL)
     .then(() => console.log("Connected to MongoDB..."))
     .catch((err) => console.error("Could not connect to MongoDB...", err));
 
-
-
-const studentRoute = require(`./router/studentRoute`)
-
-const userRoute = require(`./router/userRoute`)
-
-
-app.use(`/student`, studentRoute)
-app.use(`/user`, userRoute)
+app.use('/users', userRoute);
+app.use(`/students`, studentRoute);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

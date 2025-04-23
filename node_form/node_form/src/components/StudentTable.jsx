@@ -96,6 +96,7 @@ const StudentTable = ({ setEditData, fetchData }) => {
             console.log(response)
             setStudents(response.data);
         } catch (error) {
+            
             console.error("Error fetching student data", error);
         }
     };
